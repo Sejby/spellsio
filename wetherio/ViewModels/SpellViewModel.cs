@@ -41,7 +41,7 @@ public partial class SpellViewModel : ViewModelBase
 
             if (spells != null)
             {
-                Spells.Clear();  // Clear existing spells first
+                Spells.Clear();
                 foreach (var spell in spells)
                 {
                     Debug.WriteLine($"Přidávám kouzlo: {spell.Name}");

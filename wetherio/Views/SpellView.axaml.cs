@@ -10,16 +10,9 @@ namespace wetherio.Views
         public SpellView()
         {
             InitializeComponent();
-            DataContext = new SpellViewModel();
-            _ = InitializeAsync();
-        }
-
-        private async Task InitializeAsync()
-        {
-            if (DataContext is SpellViewModel viewModel)
-            {
-                await viewModel.InitializeAsync();
-            }
+            var viewModel = new SpellViewModel();
+            DataContext = viewModel;
+            _ = viewModel.InitializeAsync();
         }
 
         private void InitializeComponent()
