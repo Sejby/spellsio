@@ -1,0 +1,71 @@
+<UserControl
+    x:Class="wetherio.Views.SpellView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:wetherio.ViewModels"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    x:DataType="vm:SpellViewModel"
+    mc:Ignorable="d">
+
+    <ScrollViewer Background="#1E1E1E" 
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Disabled">
+        <ItemsControl ItemsSource="{Binding Spells}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" 
+                              Margin="10,20"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Margin="10,0"
+                        Padding="15"
+                        Background="#2E2E2E"
+                        BorderBrush="{Binding Light, Converter={StaticResource SpellColorConverter}}"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Width="300"
+                        Height="200"
+                        BoxShadow="0 4 8 0 #80000000">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding Name}" 
+                                     FontWeight="Bold" 
+                                     FontSize="18"
+                                     Foreground="White"/>
+                            <TextBlock Text="{Binding Incantation}" 
+                                     FontStyle="Italic"
+                                     Foreground="#CCCCCC"
+                                     Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding Effect}" 
+                                     TextWrapping="Wrap"
+                                     Foreground="#DADADA"/>
+                            <StackPanel Orientation="Horizontal" 
+                                      Spacing="10" 
+                                      Margin="0,10,0,0">
+                                <Border Background="{Binding Light, Converter={StaticResource SpellColorConverter}}"
+                                        CornerRadius="4"
+                                        Padding="6,3">
+                                    <TextBlock Text="{Binding Type}" 
+                                             Foreground="White" 
+                                             FontSize="12"/>
+                                </Border>
+                                <Border Background="#404040"
+                                        CornerRadius="4"
+                                        Padding="6,3">
+                                    <TextBlock Text="{Binding Light}" 
+                                             Foreground="White" 
+                                             FontSize="12"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>
