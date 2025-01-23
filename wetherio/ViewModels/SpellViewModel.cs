@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using wetherio.Models;
 using System.Diagnostics;
+using wetherio.Factory;
 using System.Linq;
 
 namespace wetherio.ViewModels;
@@ -29,7 +30,7 @@ public partial class SpellViewModel : ViewModelBase
         using HttpClient client = new();
         try
         {
-            Debug.WriteLine("Načítání dat z API...");
+            Debug.WriteLine("Loading spells from API...");
             var response = await client.GetStringAsync("https://wizard-world-api.herokuapp.com/Spells");
             var options = new JsonSerializerOptions
             {
@@ -44,14 +45,37 @@ public partial class SpellViewModel : ViewModelBase
                 Spells.Clear();
                 foreach (var spell in spells)
                 {
-                    Debug.WriteLine($"Přidávám kouzlo: {spell.Name}");
-                    Spells.Add(spell);
+                    SpellFactory factory;
+                    switch (spell.Type.ToLower())
+                    {
+                        case "charm":
+                            factory = new CharmSpellFactory();
+                            break;
+                        case "conjuration":
+                            factory = new ConjurationSpellFactory();
+                            break;
+                        default:
+                            factory = new DefaultSpellFactory();
+                            break;
+                    }
+
+                    var createdSpell = factory.CreateSpell(
+                        spell.Id,
+                        spell.Name,
+                        spell.Incantation,
+                        spell.Effect,
+                        spell.CanBeVerbal,
+                        spell.Type,
+                        spell.Light,
+                        spell.Creator
+                    );
+                    Spells.Add((Spell)createdSpell);
                 }
             }
         }
         catch (HttpRequestException ex)
         {
-            Debug.WriteLine($"Chyba při načítání dat: {ex.Message}");
+            Debug.WriteLine($"Error loading data: {ex.Message}");
         }
     }
 }

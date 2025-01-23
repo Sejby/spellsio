@@ -1,8 +1,9 @@
 using System;
+using wetherio.Interfaces;
 
 namespace wetherio.Models;
 
-public class Spell
+public class Spell: ISpell
 {
     required public Guid Id { get; set; }
     required public string Name { get; set; }

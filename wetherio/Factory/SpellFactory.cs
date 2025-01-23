@@ -1,25 +1,19 @@
 using System;
-using wetherio.Models;
+using wetherio.Interfaces;
+
 
 namespace wetherio.Factory;
 
-public static class SpellFactory
+public abstract class SpellFactory
 {
-    public static Spell CreateSpell(
-        Guid id, string name, string incantation, string effect, bool? canBeVerbal,
-        string type, string light, string creator
-    )
-    {
-        return new Spell
-        {
-            Id = id,
-            Name = name,
-            Incantation = incantation,
-            Effect = effect,
-            CanBeVerbal = canBeVerbal,
-            Type = type,
-            Light = light,
-            Creator = creator
-        };
-    }
+    public abstract ISpell CreateSpell(
+        Guid id,
+        string name,
+        string incantation,
+        string effect,
+        bool? canBeVerbal,
+        string type,
+        string light,
+        string creator
+    );
 }
