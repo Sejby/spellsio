@@ -7,16 +7,17 @@ using wetherio.Models;
 using System.Diagnostics;
 using wetherio.Factory;
 using System.Linq;
+using wetherio.Interfaces;
 
 namespace wetherio.ViewModels;
 
 public partial class SpellViewModel : ViewModelBase
 {
-    public ObservableCollection<Spell> Spells { get; private set; }
+    public ObservableCollection<ISpell> Spells { get; private set; }
 
     public SpellViewModel()
     {
-        Spells = new ObservableCollection<Spell>();
+        Spells = new ObservableCollection<ISpell>();
         _ = InitializeAsync();
     }
 
@@ -45,7 +46,7 @@ public partial class SpellViewModel : ViewModelBase
                 Spells.Clear();
                 foreach (var spell in spells)
                 {
-                    SpellFactory factory;
+                    SpellFactory? factory;
                     switch (spell.Type.ToLower())
                     {
                         case "charm":
@@ -69,7 +70,7 @@ public partial class SpellViewModel : ViewModelBase
                         spell.Light,
                         spell.Creator
                     );
-                    Spells.Add((Spell)createdSpell);
+                    Spells.Add(createdSpell);
                 }
             }
         }

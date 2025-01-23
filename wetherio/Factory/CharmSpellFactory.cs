@@ -19,7 +19,7 @@ namespace wetherio.Factory
             if (type.ToLower() != "charm")
                 throw new ArgumentException("Invalid spell type for CharmSpellFactory");
 
-            return new Spell
+            return new CharmSpell
             {
                 Id = id,
                 Name = name,

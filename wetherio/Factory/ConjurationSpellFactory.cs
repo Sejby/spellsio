@@ -19,7 +19,7 @@ namespace wetherio.Factory
             if (type.ToLower() != "conjuration")
                 throw new ArgumentException("Invalid spell type for ConjurationSpellFactory");
 
-            return new Spell
+            return new ConjurationSpell
             {
                 Id = id,
                 Name = name,

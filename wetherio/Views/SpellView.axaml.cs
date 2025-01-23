@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using wetherio.ViewModels;
-using System.Threading.Tasks;
 
 namespace wetherio.Views
 {
